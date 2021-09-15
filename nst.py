@@ -5,6 +5,7 @@ from PIL import Image
 import torchvision.transforms as transforms
 import torchvision.models as models
 from torchvision.utils import save_image
+import os
 
 model = models.vgg19(pretrained=True).features
 
@@ -56,6 +57,9 @@ alpha = 1
 beta = 0.01
 
 optimizer = optim.Adam([generated], lr=learning_rate)
+
+if not os.path.exists('generated'):
+    os.makedirs('generated')
 
 for step in range(total_steps):
     generated_features = model(generated)
